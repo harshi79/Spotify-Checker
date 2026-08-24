@@ -1,4 +1,5 @@
 # Cookie Checker configuration
+# Made by @YorichiiPrime
 # true/false fields let users turn output lines ON/OFF in generated txt.
 txt_fields:
   plan: true # Plan name (Premium, Family Premium, etc.)

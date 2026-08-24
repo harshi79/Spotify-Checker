@@ -48,6 +48,8 @@ DEFAULT_CONFIG = {
     }
 }
 
+PROJECT_CREDIT = "Made by @YorichiiPrime"
+
 PLAN_IMAGE_URLS = {
     "premium_like": "https://i.ibb.co/7d46Mh6t/images.png",
     "family": "https://i.ibb.co/Kp7cMby0/da350adf32b1be5c56a4601202cf134a.jpg",
@@ -56,6 +58,7 @@ PLAN_IMAGE_URLS = {
 }
 
 DEFAULT_YAML_CONFIG = """# Cookie Checker configuration
+# Made by @YorichiiPrime
 # true/false fields let users turn output lines ON/OFF in generated txt.
 txt_fields:
   plan: true # Plan name (Premium, Family Premium, etc.)
@@ -190,6 +193,7 @@ def render_simple_dashboard(counts, plan_counts, owner_plan_counts, cookies_left
         ▀▄▄▄▄▄▀▄▄▄▀▀▀▄▄▄▄▀▀▄▄▄▀▀▄▄▄▀▄▄▄▀▀▀▀▄▄▄▀▀▀▀▄▄▄▄▄▀▄▀▄▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▀▄▄▀
     """)
     print(color_text("Cookie Checker - Simple Mode", title_color, colored))
+    print(color_text(PROJECT_CREDIT, "\033[90m", colored))
     print(
         f"{color_text('Progress:', title_color, colored)} "
         f"{color_text(str(processed), progress_color, colored)}/{color_text(str(cookies_total), progress_color, colored)} "
@@ -825,6 +829,7 @@ def format_cookie_file(data, cookie_content, config):
         lines.append(f"Address: {address}")
 
     lines.append("")
+    lines.append(PROJECT_CREDIT)
     lines.append("COOKIE :👇")
     lines.append("")
     lines.append(cookie_content.strip())
@@ -836,7 +841,7 @@ def build_invite_address_message(data):
     free_slots = data.get("freeSlots")
     invite_link = data.get("inviteLink", "")
     address = data.get("address", "")
-    lines = ["# Family Invite"]
+    lines = ["# Family Invite", PROJECT_CREDIT]
     if isinstance(free_slots, int):
         lines.append(f"**Free Slots:** {free_slots}")
     if invite_link:
@@ -859,7 +864,7 @@ def build_invite_address_message_telegram(data):
     free_slots = data.get("freeSlots")
     invite_link = data.get("inviteLink", "")
     address = data.get("address", "")
-    lines = ['<b>Family Invite</b>']
+    lines = ['<b>Family Invite</b>', f'<i>{PROJECT_CREDIT}</i>']
     if isinstance(free_slots, int):
         lines.append(f"<b>Free Slots:</b> {free_slots}")
     if invite_link:
@@ -875,6 +880,7 @@ def build_full_notification_message(data):
     country = data.get("country", "unknown")
     lines = [
         "Spotify Account Details",
+        PROJECT_CREDIT,
         f"Plan: {plan}",
         f"Country: {country}"
     ]
@@ -889,6 +895,7 @@ def build_full_notification_message_discord(data):
     country = data.get("country", "unknown")
     lines = [
         "# Account Details",
+        PROJECT_CREDIT,
         f"**Plan:** {plan}",
         f"**Country:** {country}"
     ]
@@ -903,6 +910,7 @@ def build_full_notification_message_telegram(data):
     country = data.get("country", "unknown")
     lines = [
         '<b>Account Details</b>',
+        f'<i>{PROJECT_CREDIT}</i>',
         f"<b>Plan:</b> {_escape_html(plan)}",
         f"<b>Country:</b> {_escape_html(country)}"
     ]
@@ -1335,6 +1343,8 @@ def main():
 
             👉  Welcome, after moving your cookies to (cookies) folder, press  👈
                               Enter if you're ready to start!
+
+                            Made by @YorichiiPrime
     """)
     input()
     try:

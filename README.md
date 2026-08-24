@@ -1,5 +1,7 @@
 # 🎵 Cookie Checker
 
+Made by @YorichiiPrime
+
 A multi-threaded cookie validation utility with proxy rotation, retries, account-detail extraction, and optional Discord or Telegram notifications.
 
 ## Features
