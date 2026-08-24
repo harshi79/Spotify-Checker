@@ -1,8 +1,4 @@
-# Checker By: https://github.com/harshitkamboj
-# Website: https://harshitkamboj.in
-# Discord: illuminatis69
-
-# Spotify Checker configuration
+# Cookie Checker configuration
 # true/false fields let users turn output lines ON/OFF in generated txt.
 txt_fields:
   plan: true # Plan name (Premium, Family Premium, etc.)

@@ -55,10 +55,7 @@ PLAN_IMAGE_URLS = {
     "unknown": "https://i.ibb.co/dwd5ddxj/download-8.jpg"
 }
 
-DEFAULT_YAML_CONFIG = """# Checker By: https://github.com/harshitkamboj
-# Website: https://harshitkamboj.in
-# Discord: illuminatis69
-# Spotify Checker configuration
+DEFAULT_YAML_CONFIG = """# Cookie Checker configuration
 # true/false fields let users turn output lines ON/OFF in generated txt.
 txt_fields:
   plan: true # Plan name (Premium, Family Premium, etc.)
@@ -92,7 +89,7 @@ def clear_screen():
 
 def set_console_title(title):
     if os.name == 'nt':
-        os.system(f'title SpotifyChecker - {title}')
+        os.system(f'title CookieChecker - {title}')
     else:
         sys.stdout.write(f'\033]0;{title}\007')
         sys.stdout.flush()
@@ -191,10 +188,8 @@ def render_simple_dashboard(counts, plan_counts, owner_plan_counts, cookies_left
         █─▄▄▄▄█▄─▄▄─█─▄▄─█─▄─▄─█▄─▄█▄─▄▄─█▄─█─▄███─▄▄▄─█─█─█▄─▄▄─█─▄▄▄─█▄─█─▄█▄─▄▄─█▄─▄▄▀█
         █▄▄▄▄─██─▄▄▄█─██─███─████─███─▄████▄─▄████─███▀█─▄─██─▄█▀█─███▀██─▄▀███─▄█▀██─▄─▄█
         ▀▄▄▄▄▄▀▄▄▄▀▀▀▄▄▄▄▀▀▄▄▄▀▀▄▄▄▀▄▄▄▀▀▀▀▄▄▄▀▀▀▀▄▄▄▄▄▀▄▀▄▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▀▄▄▀
-    by https://github.com/harshitkamboj | website: harshitkamboj.in | discord: illuminatis69
-                        (Star The Repo 🌟 and Share for more Checkers)
     """)
-    print(color_text("Spotify Checker - Simple Mode", title_color, colored))
+    print(color_text("Cookie Checker - Simple Mode", title_color, colored))
     print(
         f"{color_text('Progress:', title_color, colored)} "
         f"{color_text(str(processed), progress_color, colored)}/{color_text(str(cookies_total), progress_color, colored)} "
@@ -830,8 +825,7 @@ def format_cookie_file(data, cookie_content, config):
         lines.append(f"Address: {address}")
 
     lines.append("")
-    lines.append("Checker By: github.com/harshitkamboj | Website: harshitkamboj.in")
-    lines.append("Spotify COOKIE :👇")
+    lines.append("COOKIE :👇")
     lines.append("")
     lines.append(cookie_content.strip())
     lines.append("")
@@ -842,7 +836,7 @@ def build_invite_address_message(data):
     free_slots = data.get("freeSlots")
     invite_link = data.get("inviteLink", "")
     address = data.get("address", "")
-    lines = ["# [Spotify Family Invite](https://github.com/harshitkamboj/Spotify-Cookie-Checker)"]
+    lines = ["# Family Invite"]
     if isinstance(free_slots, int):
         lines.append(f"**Free Slots:** {free_slots}")
     if invite_link:
@@ -851,9 +845,6 @@ def build_invite_address_message(data):
         lines.append("**Address:**")
         lines.append(f"```{address}```")
     lines.append("")
-    lines.append(
-        "**[Github](https://github.com/harshitkamboj)** | **[Website](https://harshitkamboj.in)** | **[Discord](https://discord.com/users/1171797848078172173)**"
-    )
     return "\n".join(lines)
 
 def _escape_html(text):
@@ -868,7 +859,7 @@ def build_invite_address_message_telegram(data):
     free_slots = data.get("freeSlots")
     invite_link = data.get("inviteLink", "")
     address = data.get("address", "")
-    lines = ['<b><a href="https://github.com/harshitkamboj/Spotify-Cookie-Checker">Spotify Family Invite</a></b>']
+    lines = ['<b>Family Invite</b>']
     if isinstance(free_slots, int):
         lines.append(f"<b>Free Slots:</b> {free_slots}")
     if invite_link:
@@ -877,11 +868,6 @@ def build_invite_address_message_telegram(data):
         lines.append("<b>Address:</b>")
         lines.append(f"<code>{_escape_html(address)}</code>")
     lines.append("")
-    lines.append(
-        '<b><a href="https://github.com/harshitkamboj">Github</a></b> | '
-        '<b><a href="https://harshitkamboj.in">Website</a></b> | '
-        '<b><a href="https://discord.com/users/1171797848078172173">Discord</a></b>'
-    )
     return "\n".join(lines)
 
 def build_full_notification_message(data):
@@ -895,8 +881,6 @@ def build_full_notification_message(data):
     if data.get("currentPlan") in ("family_premium_v2", "family_basic", "duo_premium") and data.get("isSubAccount") is False:
         lines.append("Owner: True")
     lines.extend([
-        "",
-        "Github: https://github.com/harshitkamboj | Website: https://harshitkamboj.in | Discord: https://discord.com/users/1171797848078172173"
     ])
     return "\n".join(lines)
 
@@ -904,15 +888,13 @@ def build_full_notification_message_discord(data):
     plan = plan_name_mapping(data.get("currentPlan", "unknown"))
     country = data.get("country", "unknown")
     lines = [
-        "# [Spotify Account Details](https://github.com/harshitkamboj/Spotify-Cookie-Checker)",
+        "# Account Details",
         f"**Plan:** {plan}",
         f"**Country:** {country}"
     ]
     if data.get("currentPlan") in ("family_premium_v2", "family_basic", "duo_premium") and data.get("isSubAccount") is False:
         lines.append("**Owner:** True")
     lines.extend([
-        "",
-        "**[Github](https://github.com/harshitkamboj)** | **[Website](https://harshitkamboj.in)** | **[Discord](https://discord.com/users/1171797848078172173)**"
     ])
     return "\n".join(lines)
 
@@ -920,18 +902,12 @@ def build_full_notification_message_telegram(data):
     plan = plan_name_mapping(data.get("currentPlan", "unknown"))
     country = data.get("country", "unknown")
     lines = [
-        '<b><a href="https://github.com/harshitkamboj/Spotify-Cookie-Checker">Spotify Account Details</a></b>',
+        '<b>Account Details</b>',
         f"<b>Plan:</b> {_escape_html(plan)}",
         f"<b>Country:</b> {_escape_html(country)}"
     ]
     if data.get("currentPlan") in ("family_premium_v2", "family_basic", "duo_premium") and data.get("isSubAccount") is False:
         lines.append("<b>Owner:</b> True")
-    lines.extend([
-        "",
-        '<b><a href="https://github.com/harshitkamboj">Github</a></b> | '
-        '<b><a href="https://harshitkamboj.in">Website</a></b> | '
-        '<b><a href="https://discord.com/users/1171797848078172173">Discord</a></b>'
-    ])
     return "\n".join(lines)
 
 def get_notification_image_url(data, invite_mode=False):
@@ -1055,7 +1031,7 @@ def generate_filename(country, plan_name):
     safe_plan = plan_name.replace(' ', '-').replace('_', '-')
     safe_country = country.replace(' ', '-').replace('_', '-')
     randnum = random_number_string()
-    return f"{safe_country}_github-harshitkamboj_{safe_plan}_{randnum}.txt"
+    return f"{safe_country}_checker_{safe_plan}_{randnum}.txt"
 
 def convert_json_to_netscape(json_data):
     netscape_lines = []
@@ -1330,7 +1306,7 @@ def checkCookies(num_threads=1, config=None):
     for thread in threads:
         thread.join()
     valid = counts['hits'] + counts['free']
-    set_console_title(f"SpotifyChecker - Finished Valid {valid} Failed {counts['bad']} Errors {counts['errors']}")
+    set_console_title(f"CookieChecker - Finished Valid {valid} Failed {counts['bad']} Errors {counts['errors']}")
     if display_mode == "simple":
         render_simple_dashboard(counts, plan_counts, owner_plan_counts, cookies_left[0], cookies_total, use_colors)
         print("")
@@ -1354,8 +1330,6 @@ def main():
         █─▄▄▄▄█▄─▄▄─█─▄▄─█─▄─▄─█▄─▄█▄─▄▄─█▄─█─▄███─▄▄▄─█─█─█▄─▄▄─█─▄▄▄─█▄─█─▄█▄─▄▄─█▄─▄▄▀█
         █▄▄▄▄─██─▄▄▄█─██─███─████─███─▄████▄─▄████─███▀█─▄─██─▄█▀█─███▀██─▄▀███─▄█▀██─▄─▄█
         ▀▄▄▄▄▄▀▄▄▄▀▀▀▄▄▄▄▀▀▄▄▄▀▀▄▄▄▀▄▄▄▀▀▀▀▄▄▄▀▀▀▀▄▄▄▄▄▀▄▀▄▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▀▄▄▀
-    by https://github.com/harshitkamboj | website: harshitkamboj.in | discord: illuminatis69
-                        (Star The Repo 🌟 and Share for more Checkers)
 
 --------------------------------------------------------------------------------------------------
 

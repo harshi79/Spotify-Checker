@@ -1,239 +1,60 @@
-# 🎵 Spotify Cookie Checker V2
+# 🎵 Cookie Checker
 
-Fast, multi-threaded Spotify cookie checker with smart parsing, proxy rotation, retries, detailed account extraction, and Discord/Telegram notifications.
+A multi-threaded cookie validation utility with proxy rotation, retries, account-detail extraction, and optional Discord or Telegram notifications.
 
-## Discord: https://discord.gg/DYJFE9nu5X
+## Features
 
-## ⬇️ Download (EXE)
+- Fast multi-threaded cookie checking
+- Netscape `.txt` and JSON cookie input support
+- Account plan, email, country, account-role, and payment-detail extraction
+- Broad HTTP and SOCKS proxy format support
+- Retry handling with proxy rotation
+- Built-in email deduplication
+- Log and dashboard display modes
+- Optional Discord and Telegram notifications
+- Organized outputs by run, plan, and account role
 
-Don’t use Python? Download the prebuilt `.exe`:
-
-- 📦 Releases: https://github.com/harshitkamboj/Spotify-Cookie-Checker/releases
-- 🚀 Latest: https://github.com/harshitkamboj/Spotify-Cookie-Checker/releases/latest
-
-## ✨ Features
-
-- ⚡ Fast multi-threaded cookie checking
-- 🍪 Supports Netscape `.txt` and JSON cookie formats
-- 🔍 Extracts account details:
-- plan
-- email
-- country
-- owner/member status (family/duo)
-- child account
-- family free slots, invite link, and address (when available)
-- next payment date (when detectable)
-- 🌐 Broad proxy format support (`http`, `https`, `socks4/5`, auth variants)
-- 🔁 Retry system with proxy rotation on retryable errors
-- 🧠 Built-in dedupe by email (duplicates skipped + counted)
-- 🖥️ Two display modes:
-- `log` (line-by-line)
-- `simple` (dashboard counters)
-- 🔔 Discord + Telegram notifications
-- 🗂️ Organized output by run + plan + account role
-
-## 📦 Requirements
+## Requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Optional for SOCKS:
+Optional SOCKS support:
 
 ```bash
-pip install requests[socks]
+pip install 'requests[socks]'
 ```
 
-## 🚀 Quick Start
+## Quick start
 
-1. Clone the repo:
+1. Clone this repository.
+2. Install dependencies with `pip install -r requirements.txt`.
+3. Place authorized cookie files in `cookies/`.
+4. Optionally add proxies to `proxy.txt`.
+5. Configure `config.yml`.
+6. Run `python main.py`.
 
-```bash
-git clone https://github.com/harshitkamboj/Spotify-Cookie-Checker.git
-cd Spotify-Cookie-Checker
-```
-
-2. Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-3. Put cookie files in `cookies/`
-4. (Optional) Add proxies in `proxy.txt`
-5. Configure `config.yml`
-6. Run:
-
-```bash
-python main.py
-```
-
-## 📁 Folder Layout
+## Folder layout
 
 ```text
 cookies/         # input cookies
-failed/          # invalid/expired
-broken/          # malformed/error cases
+failed/          # invalid or expired inputs
+broken/          # malformed or error cases
 hits/            # successful outputs
 proxy.txt
 config.yml
 main.py
 ```
 
-## 🍪 Supported Cookie Formats
+## Configuration
 
-### Netscape (`.txt`)
+`config.yml` controls output fields, notification settings, display mode, and retry attempts. Webhook and Telegram notifications are disabled by default.
 
-```text
-.spotify.com	TRUE	/	FALSE	1234567890	sp_dc	xxx
-```
-
-### JSON (`.json`)
-
-```json
-[
-  {
-    "domain": ".spotify.com",
-    "path": "/",
-    "secure": false,
-    "expirationDate": 1234567890,
-    "name": "sp_dc",
-    "value": "xxx"
-  }
-]
-```
-
-## 🌐 Proxy Formats
-
-One per line in `proxy.txt`:
-
-```text
-ip:port
-user:pass@ip:port
-ip:port@user:pass
-http://ip:port
-http://user:pass@ip:port
-https://user:pass@ip:port
-socks4://user:pass@ip:port
-socks4a://user:pass@ip:port
-socks5://user:pass@ip:port
-socks5h://user:pass@ip:port
-ip:port:user:pass
-user:pass:ip:port
-ip:port user:pass
-ip:port|user:pass
-ip:port;user:pass
-ip:port,user:pass
-```
-
-Also accepted/normalized:
-
-```text
-http:/ip:port
-```
-
-## ⚙️ Config (`config.yml`)
-
-### Sections
-
-- `txt_fields` -> controls fields written in output txt files
-- `notifications` -> Discord/Telegram settings and mode
-- `display` -> console UI mode (`log` or `simple`)
-- `retries` -> retry attempts for retryable request/proxy errors
-
-### Example
-
-```yml
-txt_fields:
-  plan: true
-  email: true
-  country: true
-  owner: true
-  free_slots: true
-  invite_link: true
-  address: true
-
-notifications:
-  webhook:
-    enabled: false
-    url: ""
-    mode: "full" # full | invite_address_only
-  telegram:
-    enabled: false
-    bot_token: ""
-    chat_id: ""
-    mode: "full" # full | invite_address_only
-
-display:
-  mode: "log" # log | simple
-
-retries:
-  error_proxy_attempts: 3
-```
-
-## 🔁 Retry Behavior
-
-- Retries per cookie: `retries.error_proxy_attempts`
-- Uses different proxies across retries when available
-- Retry status codes: `403`, `429`, `500`, `502`, `503`, `504`
-- Retryable failures exhausted -> `broken/`
-- Invalid/dead cookie -> `failed/`
-
-## 🧠 Email Dedupe (Built-in)
-
-- First valid account for an email is kept
-- Next valid cookies with same email are marked as duplicates
-- Duplicates are skipped and counted in stats (no output file)
-
-## 🔔 Notification Modes
-
-### `full`
-
-- Sends full account details
-- Sends output txt file
-- Discord/Telegram formatting optimized
-
-### `invite_address_only`
-
-- Sends family invite-focused message only for eligible family owners
-- Includes free slots, invite link, and address
-
-## 🧾 Output Notes
-
-- Filename format: `<COUNTRY>_github-harshitkamboj_<PLAN>_<RANDOM>.txt`
-- Branding line included:
-  `Checker By: github.com/harshitkamboj | Website: harshitkamboj.in`
-
-## 🧩 Plan Keys
-
-- `premium`
-- `premium_mini`
-- `basic_premium`
-- `student_premium`
-- `student_premium_hulu`
-- `duo_premium`
-- `family_premium_v2`
-- `family_basic`
-- `free`
-- `unknown`
-
-## 🤝 Support
-
-- ⭐ Star the repo: https://github.com/harshitkamboj/Spotify-Cookie-Checker
-
-## 📬 Contact
-
-- GitHub: https://github.com/harshitkamboj
-- Website: https://harshitkamboj.in
-- Discord: illuminatis69
-
-## 📄 License
+## License
 
 MIT License. See `LICENSE`.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
-Educational use only. Use only on accounts/cookies you are authorized to test.
-
-
-
+Use this tool only with accounts and cookie files you are explicitly authorized to test.
